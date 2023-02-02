@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CRM</title>
+  <link rel="shortcut icon" href="./img/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="./css/normalize.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css">
+  <link rel="stylesheet" href="./css/main.css">
+  <script defer src="./js/input-placeholders.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+  <script defer src="./js/crm.js"></script>
+</head>
+<body>
+  <!-- <div class="preloader">
+    <svg class="preloader__icon" width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle r="18" cx="20" cy="20" stroke="#9873FF" stroke-width="4" />
+    </svg>
+  </div> -->
+  <header class="header">
+    <div class="container header__container">
+      <a href="#" class="header__logo" aria-label="Логотип">
+        <img src="./img/logo.png" alt="skb.">
+      </a>
+      <div class="header__input-container">
+        <input class="header__input" type="text" name="query" placeholder="Введите запрос" aria-label="Введите запрос">
+        <button class="btn header__btn_clear">
+          <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M16.2333 1.73333L15.2666 0.766664L8.49991 7.53336L1.73324 0.766696L0.766576 1.73336L7.53324 8.50003L0.766603 15.2667L1.73327 16.2333L8.49991 9.46669L15.2666 16.2334L16.2332 15.2667L9.46657 8.50003L16.2333 1.73333Z" fill="#B0B0B0"/>
+          </svg>
+        </button>
+        <ul class="list header-autocomplete__list"></ul>
+      </div>
+    </div>
+  </header>
+  <main>
+    <section class="clients">
+      <div class="fixed-overlay">
+        <form class="modal form form_change" novalidate>
+          <button class="btn modal__btn_close" type="button" aria-label="Закрыть форму">
+            <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M16.2333 1.73333L15.2666 0.766664L8.49991 7.53336L1.73324 0.766696L0.766576 1.73336L7.53324 8.50003L0.766603 15.2667L1.73327 16.2333L8.49991 9.46669L15.2666 16.2334L16.2332 15.2667L9.46657 8.50003L16.2333 1.73333Z" fill="#B0B0B0"/>
+            </svg>
+          </button>
+          <div class="modal-change__top-container">
+            <h2 class="title modal__title form-change__title">
+              Изменить данные
+            </h2>
+            <span class="form-change__id"></span>
+          </div>
+          <div class="form__input-container">
+            <input type="text" class="form__input" data-path="surname" aria-label="Фамилия" required>
+            <div class="placeholder" data-target="surname">
+              Фамилия
+            </div>
+          </div>
+          <div class="form__input-container">
+            <input type="text" class="form__input" data-path="name" aria-label="Имя" required>
+            <div class="placeholder" data-target="name">
+              Имя
+            </div>
+          </div>
+          <div class="form__input-container form__input-container_last">
+            <input type="text" class="form__input" data-path="lastname" aria-label="Отчество">
+            <div class="placeholder" data-target="lastname">
+              Отчество
+            </div>
+          </div>
+          <div class="form__add-contacts">
+            <button class="btn form-add-contacts__btn" type="button" aria-label="Добавить контакт">
+              <svg width="13.33" height="13.33" viewBox="0 0 13.33 13.33" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle r="5.9" cx="6.65" cy="6.65" fill="transparent" stroke="#9873FF" stroke-width="1.4" />
+                <rect x="5.8" y="3.5" ry="1" width="1.4" height="6.5" fill="#9873FF" />
+                <rect x="8" y="-0.2" ry="1" width="1.4" height="6.5" fill="#9873FF" transform="rotate(90, 5.8, 3.8)" />
+              </svg>
+              Добавить контакт
+            </button>
+          </div>
+          <div class="form__btn-container">
+            <button class="btn btn-primary form__btn_submit" type="submit" aria-label="Сохранить">
+              Сохранить
+            </button>
+            <button class="btn btn-underlined" type="button" aria-label="Удалить клиента">
+              Удалить клиента
+            </button>
+          </div>
+        </form>
+        <form class="modal form form_create" novalidate>
+          <button class="btn modal__btn_close" type="button" aria-label="Закрыть форму">
+            <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M16.2333 1.73333L15.2666 0.766664L8.49991 7.53336L1.73324 0.766696L0.766576 1.73336L7.53324 8.50003L0.766603 15.2667L1.73327 16.2333L8.49991 9.46669L15.2666 16.2334L16.2332 15.2667L9.46657 8.50003L16.2333 1.73333Z" fill="#B0B0B0"/>
+            </svg>
+          </button>
+          <h2 class="title modal__title form-create__title">
+            Новый клиент
+          </h2>
+          <div class="form__input-container">
+            <input type="text" class="form__input" data-path="surname" aria-label="Фамилия" required>
+            <div class="placeholder" data-target="surname">
+              Фамилия
+            </div>
+          </div>
+          <div class="form__input-container">
+            <input type="text" class="form__input" data-path="name" aria-label="Имя" required>
+            <div class="placeholder" data-target="name">
+              Имя
+            </div>
+          </div>
+          <div class="form__input-container form__input-container_last">
+            <input type="text" class="form__input" data-path="lastname" aria-label="Отчество">
+            <div class="placeholder" data-target="lastname">
+              Отчество
+            </div>
+          </div>
+          <div class="form__add-contacts">
+            <button class="btn form-add-contacts__btn" type="button" aria-label="Добавить контакт">
+              <svg width="13.33" height="13.33" viewBox="0 0 13.33 13.33" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle r="5.9" cx="6.65" cy="6.65" fill="transparent" stroke="#9873FF" stroke-width="1.4" />
+                <rect x="5.8" y="3.5" ry="1" width="1.4" height="6.5" fill="#9873FF" />
+                <rect x="8" y="-0.2" ry="1" width="1.4" height="6.5" fill="#9873FF" transform="rotate(90, 5.8, 3.8)" />
+              </svg>
+              Добавить контакт
+            </button>
+          </div>
+          <div class="form__btn-container">
+            <button class="btn btn-primary form__btn_submit" type="submit" aria-label="Сохранить">
+              Сохранить
+            </button>
+            <button class="btn btn-underlined" type="button" aria-label="Отмена">
+              Отмена
+            </button>
+          </div>
+        </form>
+        <div class="modal modal_delete">
+          <button class="btn modal__btn_close" aria-label="Закрыть модальное окно">
+            <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M16.2333 1.73333L15.2666 0.766664L8.49991 7.53336L1.73324 0.766696L0.766576 1.73336L7.53324 8.50003L0.766603 15.2667L1.73327 16.2333L8.49991 9.46669L15.2666 16.2334L16.2332 15.2667L9.46657 8.50003L16.2333 1.73333Z" fill="#B0B0B0"/>
+            </svg>
+          </button>
+          <h2 class="title modal__title modal-delete__title">
+            Удалить клиента
+          </h2>
+          <p class="descr modal-delete__descr">
+            Вы действительно хотите удалить данного клиента?
+          </p>
+          <button class="btn btn-primary modal__btn_delete form__btn_submit" aria-label="Удалить">
+            Удалить
+          </button>
+          <button class="btn btn-underlined" aria-label="Отмена">
+            Отмена
+          </button>
+        </div>
+        <div class="modal modal_error">
+          <button class="btn modal__btn_close" aria-label="Закрыть модальное окно">
+            <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M16.2333 1.73333L15.2666 0.766664L8.49991 7.53336L1.73324 0.766696L0.766576 1.73336L7.53324 8.50003L0.766603 15.2667L1.73327 16.2333L8.49991 9.46669L15.2666 16.2334L16.2332 15.2667L9.46657 8.50003L16.2333 1.73333Z" fill="#B0B0B0"/>
+            </svg>
+          </button>
+          <?xml version="1.0" ?><svg class="modal-error__icon" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><defs><style>.cls-1{fill:#9873FF;}</style></defs><title/><g data-name="Layer 58" id="Layer_58"><path class="cls-1" d="M16,26a2,2,0,1,1,2-2A2,2,0,0,1,16,26Zm0-2Z"/><path class="cls-1" d="M16,20a1,1,0,0,1-1-1V11a1,1,0,0,1,2,0v8A1,1,0,0,1,16,20Z"/><path class="cls-1" d="M27.78,30H4.22a3.19,3.19,0,0,1-2.77-1.57,3.13,3.13,0,0,1-.06-3.13L13.17,3.67a3.23,3.23,0,0,1,5.66,0L30.61,25.3a3.13,3.13,0,0,1-.06,3.13A3.19,3.19,0,0,1,27.78,30ZM16,4a1.18,1.18,0,0,0-1.07.63L3.15,26.25a1.12,1.12,0,0,0,0,1.16,1.19,1.19,0,0,0,1,.59H27.78a1.19,1.19,0,0,0,1-.59,1.12,1.12,0,0,0,0-1.16L17.07,4.63A1.18,1.18,0,0,0,16,4Z"/></g></svg>
+          <p class="descr modal-error__descr">
+            Вы действительно хотите удалить данного клиента?
+          </p>
+          <button class="btn btn-primary modal__btn_error form__btn_submit" aria-label="Удалить">
+            Ок
+          </button>
+        </div>
+      </div>
+      <div class="container clients__container">
+        <h1 class="title section__title clients__title">
+          Клиенты
+        </h1>
+        <div class="scroll-table">
+          <table>
+            <thead>
+              <tr>
+                <th class="table__title" data-name="id">
+                  <button class="btn clients-table__btn_sort" data-name="id" data-sort="true" data-order="ascending">
+                    <span class="text-nowrap">
+                    ID
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <g opacity="0.7">
+                        <path d="M10 6L9.295 5.295L6.5 8.085L6.5 2H5.5L5.5 8.085L2.71 5.29L2 6L6 10L10 6Z" fill="#9873FF"/>
+                      </g>
+                    </svg>
+                    </span>
+                  </button>
+                </th>
+                <th class="table__title" data-name="fullname">
+                  <button class="btn clients-table__btn_sort" data-name="fullname" data-sort="false">
+                    Фамилия Имя
+                    <span class="text-nowrap">
+                      Отчество
+                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <g opacity="0.7">
+                            <path d="M10 6L9.295 5.295L6.5 8.085L6.5 2H5.5L5.5 8.085L2.71 5.29L2 6L6 10L10 6Z" fill="#9873FF"/>
+                          </g>
+                        </svg>
+                      <span class="text-purple">
+                        А-Я
+                      </span>
+                    </span>
+                  </button>
+                </th>
+                <th class="table__title" data-name="creationdate">
+                  <button class="btn clients-table__btn_sort" data-name="creationdate" data-sort="false">
+                    Дата и время
+                    <span class="text-nowrap">
+                      создания
+                      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <g opacity="0.7">
+                          <path d="M10 6L9.295 5.295L6.5 8.085L6.5 2H5.5L5.5 8.085L2.71 5.29L2 6L6 10L10 6Z" fill="#9873FF"/>
+                        </g>
+                      </svg>
+                    </span>
+                  </button>
+                </th>
+                <th class="table__title" data-name="lastchanges">
+                  <button class="btn clients-table__btn_sort" data-name="lastchanges" data-sort="false">
+                    Последние
+                    <span class="text-nowrap">
+                      изменения
+                      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <g opacity="0.7">
+                          <path d="M10 6L9.295 5.295L6.5 8.085L6.5 2H5.5L5.5 8.085L2.71 5.29L2 6L6 10L10 6Z" fill="#9873FF"/>
+                        </g>
+                      </svg>
+                    </span>
+                  </button>
+                </th>
+                <th class="table__title" data-name="contacts">Контакты</th>
+                <th class="table__title" data-name="actions">Действия</th>
+              </tr>
+            </thead>
+          </table>
+          <div class="scroll-table-body">
+            <div class="preloader invisible">
+              <svg class="preloader__icon" width="72" height="72" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle r="18" cx="20" cy="20" stroke="#9873FF" stroke-width="4" />
+              </svg>
+            </div>
+            <div class="table__error invisible">
+              <?xml version="1.0" ?><svg class="table-error__icon" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><defs><style>.cls-1{fill:#9873FF;}</style></defs><title/><g data-name="Layer 58" id="Layer_58"><path class="cls-1" d="M16,26a2,2,0,1,1,2-2A2,2,0,0,1,16,26Zm0-2Z"/><path class="cls-1" d="M16,20a1,1,0,0,1-1-1V11a1,1,0,0,1,2,0v8A1,1,0,0,1,16,20Z"/><path class="cls-1" d="M27.78,30H4.22a3.19,3.19,0,0,1-2.77-1.57,3.13,3.13,0,0,1-.06-3.13L13.17,3.67a3.23,3.23,0,0,1,5.66,0L30.61,25.3a3.13,3.13,0,0,1-.06,3.13A3.19,3.19,0,0,1,27.78,30ZM16,4a1.18,1.18,0,0,0-1.07.63L3.15,26.25a1.12,1.12,0,0,0,0,1.16,1.19,1.19,0,0,0,1,.59H27.78a1.19,1.19,0,0,0,1-.59,1.12,1.12,0,0,0,0-1.16L17.07,4.63A1.18,1.18,0,0,0,16,4Z"/></g></svg>
+              <p class="descr table-error__descr">
+                Потеряно соединение с сервером
+              </p>
+              <button class="btn btn-primary table-error__btn">
+                <?xml version="1.0" ?><!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.1//EN'  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'><svg id="Layer_1" style="enable-background:new 0 0 64 64;" version="1.1" viewBox="0 0 64 64" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><style type="text/css">
+                  .st0{fill:#FFFFFF;}
+                </style><g><g id="Icon-Undo" transform="translate(82.000000, 432.000000)"><path class="st0" d="M-50.1-380.1C-61-380.1-70-389-70-400c0-11,8.9-19.9,19.9-19.9c8.3,0,15.4,5.2,18.3,13.3     l-2.7,1c-2.5-7-8.5-11.4-15.6-11.4c-9.4,0-17,7.6-17,17s7.6,17,17,17c6.6,0,12.7-3.9,15.5-9.9l2.6,1.2     C-35.2-384.6-42.3-380.1-50.1-380.1" id="Fill-83"/><polyline class="st0" id="Fill-84" points="-42.4,-404.6 -42.4,-407.7 -33.1,-407.7 -33.1,-416.9 -30,-416.9 -30,-404.6      -42.4,-404.6    "/></g></g></svg>
+                Перезагрузить
+              </button>
+            </div>
+            <table>
+              <tbody>
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <button class="btn btn-secondary clients__btn" aria-label="Добавить клиента">
+          <svg width="23" height="16" viewBox="0 0 23 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M14.5 8C16.71 8 18.5 6.21 18.5 4C18.5 1.79 16.71 0 14.5 0C12.29 0 10.5 1.79 10.5 4C10.5 6.21 12.29 8 14.5 8ZM5.5 6V3H3.5V6H0.5V8H3.5V11H5.5V8H8.5V6H5.5ZM14.5 10C11.83 10 6.5 11.34 6.5 14V16H22.5V14C22.5 11.34 17.17 10 14.5 10Z" fill="#9873FF"/>
+          </svg>
+          Добавить клиента
+        </button>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
+
+
+
+
+
+
+
